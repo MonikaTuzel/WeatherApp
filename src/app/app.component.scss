@@ -1,0 +1,27 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+app-header {
+    background-color: #609966;
+    height: 60px;
+
+    display: flex;
+    flex-direction: row;
+
+    justify-content: space-between;
+    align-items: center;
+}
+
+app-content {
+    flex: auto;
+ }
+
+app-footer {
+    background-color: #40513B;
+    height: 130px;
+
+    color: #9DC08B;    
+}
