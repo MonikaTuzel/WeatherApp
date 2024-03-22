@@ -17,4 +17,55 @@ a {
 span {
     margin-right: 5cap;
     font-size: large;
+    min-width: 150px;
+}
+
+.input_container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    margin-right: 2%;
+
+    input {
+        font-family: "Truculenta", sans-serif;
+        background-color: transparent;
+        border-color: #40513B;
+        border-top: 0;
+        border-left: 0;
+        border-right: 0;
+
+        font-size: 20px;
+        width: 15opx;
+
+
+
+    }
+
+    #townCountryNEW {
+        width: 50px;
+        margin-left: 15px;
+
+    }
+
+
+    button {
+        background-color: #40513B;
+        color: #9DC08B;
+        text-align: center;
+        font-family: "Truculenta", sans-serif;
+
+        border: 0cap;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        margin-left: 10px;
+
+        :hover {
+            border-radius: 50%;
+
+            box-shadow: 3px 3px 10px black;
+        }
+    }
 }
