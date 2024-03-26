@@ -1,1 +1,25 @@
-    <p>content works!</p>
+<div class="content_container">
+
+    <button *ngFor="let town of townNameList">
+        <div id="townContainer" style='--town-url: url("{{town.townWeather?.weatherMainUrl}}")'>
+
+            <span style="background-color: aqua;">
+                <span>{{town.name}}</span>
+                <span>
+                    <script src="{{town.townWeather?.iconUrl}}" style="width: 100px; height: 100px;"></script>
+                </span>
+            </span>
+
+
+            <span style="background-color: green;">
+                <span>Weather</span>
+                <span class="weatherDescription">
+                    Temp: {{town.townWeather?.weatherMainUrl}}
+
+                </span>
+            </span>
+
+        </div>
+    </button>
+
+</div>
