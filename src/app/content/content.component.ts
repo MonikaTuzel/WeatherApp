@@ -13,71 +13,86 @@ import { UntypedFormBuilder } from '@angular/forms';
 export class ContentComponent implements OnInit {
 
   getWeatherUrl = environment.apiPath;
-  townNameList = setTownList();
+  townList = setTownList();
   // townWeatherList = new Array<WeatherResponse>();
   totalAngularPackages: any;
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    for (let townName of this.townNameList) {
-      let url = encodeURI(`${environment.apiPath}?q=${townName.name},${townName.country}&APPID=${environment.apiKey}`)
+    for (let town of this.townList) {
+      let url = encodeURI(`${environment.apiPath}?q=${town.name},${town.country}&APPID=${environment.apiKey}`)
 
-      this.http.get<WeatherResponse>(url).subscribe(townWeather => {
-        this.totalAngularPackages = townWeather;
+      this.http.get<WeatherResponse>(url).subscribe(weatherResponseTown => {
+        this.totalAngularPackages = weatherResponseTown;
 
-        if (townWeather !== undefined) {
-          if (townWeather.weather !== undefined) {
+        if (weatherResponseTown !== undefined) {
+          if (weatherResponseTown.weather !== undefined) {
+
             let url = '../../assets/images';
-            let codeTown = townWeather.weather[0].id;
-            if (codeTown !== undefined) {
+
+            let codeWetherFromTown = weatherResponseTown.weather[0].id;
+            if (codeWetherFromTown !== undefined) {
+
+              // set background of tile    
               switch (true) {
-                case (codeTown >= 200 && codeTown < 300): {
-                  townWeather.weatherMainUrl = `${url}/Thunderstorm.jpeg`;
+                case (codeWetherFromTown >= 200 && codeWetherFromTown < 300): {
+                  url += `/Thunderstorm.jpeg`;
                   break;
                 }
-                case (codeTown >= 300 && codeTown < 400): {
-                  townWeather.weatherMainUrl = `${url}/Drizzle.jpeg`;
+                case (codeWetherFromTown >= 300 && codeWetherFromTown < 400): {
+                  url += `/Drizzle.jpeg`;
                   break;
                 }
-                case (codeTown >= 500 && codeTown < 600): {
-                  townWeather.weatherMainUrl = `${url}/Rain.jpeg`;
+                case (codeWetherFromTown >= 500 && codeWetherFromTown < 600): {
+                  url += `/Rain.jpeg`;
                   break;
                 }
-                case (codeTown >= 600 && codeTown < 700): {
-                  townWeather.weatherMainUrl = `${url}/Snow.jpeg`;
+                case (codeWetherFromTown >= 600 && codeWetherFromTown < 700): {
+                  url += `/Snow.jpeg`;
                   break;
                 }
-                case (codeTown > 700 && codeTown < 800): {
-                  townWeather.weatherMainUrl = `${url}/Atmosphere.jpeg`;
+                case (codeWetherFromTown > 700 && codeWetherFromTown < 800): {
+                  url += `/Atmosphere.jpeg`;
                   break;
                 }
-                case (codeTown > 801 && codeTown < 900): {
-                  townWeather.weatherMainUrl = `${url}/Clouds.jpeg`;
+                case (codeWetherFromTown > 801 && codeWetherFromTown < 900): {
+                  url += `/Clouds.jpeg`;
                   break;
                 }
                 default: {
-                  townWeather.weatherMainUrl = `${url}/Clear.jpeg`;
+                  url += `/Clear.jpeg`;
                   break;
                 }
               }
+
+              town.viewerInfo!.weatherMainUrl = url;
+
             }
 
-            if (townWeather.weather[0].icon !== undefined) {
-              townWeather.iconUrl = `${environment.apiPaqthForIcon}/${townWeather.weather[0].icon}`
+            // set URL to icon from API
+            if (weatherResponseTown.weather[0].icon !== undefined) {
+              town.viewerInfo!.iconUrl = `${environment.apiPaqthForIcon}/${weatherResponseTown.weather[0].icon}.png`
             }
 
-            townName.townWeather = townWeather;
-
-            if (townName.townWeather.weather !== undefined) {
-              console.log('townName1: ' + townName.name + ' | townWeatherID: ' + townName.townWeather.weather[0].id + ' | townWeatherURL: ' + townName.townWeather.weatherMainUrl);
+            // convert temp from K to C
+            let temperature = '-';
+            if (weatherResponseTown.main?.temp !== undefined) {
+              temperature = this.convertTenpKtoC(weatherResponseTown.main.temp);
             }
+
+            town.viewerInfo!.temp = temperature;
+
           }
         }
       })
-
     }
+  }
 
+  convertTenpKtoC = (kelvinTemp: number): string => {
+    let temp = Number(kelvinTemp - 273.15).toFixed(0);
+
+    return (`${temp}${String.fromCharCode(176)}C`)
   }
 
 }

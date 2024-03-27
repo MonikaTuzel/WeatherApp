@@ -1,21 +1,31 @@
 <div class="content_container">
 
-    <button *ngFor="let town of townNameList">
-        <div id="townContainer" style='--town-url: url("{{town.townWeather?.weatherMainUrl}}")'>
+    <button *ngFor="let town of townList">
+        <div id="townContainer" style='--town-url: url("{{town.viewerInfo?.weatherMainUrl}}")'>
 
-            <span style="background-color: aqua;">
-                <span>{{town.name}}</span>
-                <span>
-                    <script src="{{town.townWeather?.iconUrl}}" style="width: 100px; height: 100px;"></script>
+            <span class="townNameWeatherContainer">
+                <span class="townNameWeather">
+
+                    <span class="townName">
+                        <p>{{town.name}} </p>
+                        <img src='{{town.viewerInfo?.iconUrl}}' style="width: 120px; height: 120px;" />
+                    </span>
+
+                    <span style="font-size: 2rem; display: flex; flex-direction: row;">
+                        <span style="font-size: 6rem;">
+                            {{town.viewerInfo?.temp}}
+                        </span>
+                    </span>
+
                 </span>
+
             </span>
 
 
-            <span style="background-color: green;">
+            <span style="width: 60%; margin: 1rem; display: flex; justify-items: flex-start;">
                 <span>Weather</span>
                 <span class="weatherDescription">
-                    Temp: {{town.townWeather?.weatherMainUrl}}
-
+                    Temp: {{town.viewerInfo?.weatherMainUrl}}
                 </span>
             </span>
 

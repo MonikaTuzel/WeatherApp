@@ -9,9 +9,6 @@ export class WeatherResponse {
     clouds?: Clouds;
     sys?: SysCountry;
     id?: string;
-
-    weatherMainUrl?: string;
-    iconUrl?: string;
 }
 export class CoordTown {
     // Latitude (szer)

@@ -59,7 +59,6 @@
 
             height: 100%;
             width: 100%;
-
             background-position: center;
             background-size: cover;
 
@@ -67,26 +66,41 @@
             position: absolute;
 
             opacity: 40%;
-            border-radius: 1rem;
+            border-radius: 1rem;      
         }
 
-
-
-        span {
+        .townNameWeatherContainer {
             position: relative;
+            display: flex;
             font-size: 3rem;
             align-content: center;
-            justify-content: center;
             width: 100%;
+            height: 100%;
 
+        }
+
+        .townNameWeather {
+            align-items: center;
+            justify-content: flex-start;
             margin: 2rem;
 
+            p {
+                font-size: 6rem;
+                margin: 0;
+            }
+        }
+
+        .townName {
+            display: flex;
+            flex-direction: row;
+
+            align-items: center;
         }
 
         .weatherDescription {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
+
+            justify-content: center;
+            align-items: flex-end;
             font-size: 1rem;
         }
 
