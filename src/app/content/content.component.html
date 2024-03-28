@@ -1,31 +1,44 @@
 <div class="content_container">
 
     <button *ngFor="let town of townList">
-        <div id="townContainer" style='--town-url: url("{{town.viewerInfo?.weatherMainUrl}}")'>
+        <div id="townContainer" style='--town-url: url("{{town.viewerInfo!.weatherMainUrl}}")'>
 
             <span class="townNameWeatherContainer">
                 <span class="townNameWeather">
 
                     <span class="townName">
-                        <p>{{town.name}} </p>
-                        <img src='{{town.viewerInfo?.iconUrl}}' style="width: 120px; height: 120px;" />
+                        <p class="nameTownP">{{town.name}} </p>
+                        <img src='{{town.viewerInfo!.iconUrl}}' />
                     </span>
 
-                    <span style="font-size: 2rem; display: flex; flex-direction: row;">
-                        <span style="font-size: 6rem;">
-                            {{town.viewerInfo?.temp}}
-                        </span>
+                    <span class="descriptionWeather">
+                        {{town.viewerInfo.description}}
                     </span>
+
+                    <span style="font-size: 6rem;">
+                        {{town.viewerInfo!.temp}}
+                    </span>
+
 
                 </span>
-
             </span>
 
+            <span class="descriptionWeatherContainer">
 
-            <span style="width: 60%; margin: 1rem; display: flex; justify-items: flex-start;">
-                <span>Weather</span>
                 <span class="weatherDescription">
-                    Temp: {{town.viewerInfo?.weatherMainUrl}}
+                    <p class="name">Felt temp | </p>
+                    <p class="name">Pressure | </p>
+                    <p class="name">Humidity | </p>
+                    <p class="name">Wind | </p>
+                    <p class="name">Cloudiness | </p>
+                </span>
+
+                <span class="weatherDescription">
+                    <p>{{town.viewerInfo!.feltTemp}}</p>
+                    <p>{{town.viewerInfo!.pressure}}</p>
+                    <p>{{town.viewerInfo!.humidity}}</p>
+                    <p>{{town.viewerInfo!.windSpeed}}</p>
+                    <p>{{town.viewerInfo!.clouds}}</p>
                 </span>
             </span>
 

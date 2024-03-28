@@ -20,7 +20,9 @@ export class WeatherDetails {
     // Group of weather parameters (Rain, Snow etc.)
     id?: number;
     // group of weather (Thunderstorm / Drizzle / Rain / Snow / Atmosphere / Clear / Clouds)
-    description?: GroupOfWeather;
+    description?: string;   
+     // group of weather (Thunderstorm / Drizzle / Rain / Snow / Atmosphere / Clear / Clouds)
+    main?: GroupOfWeather;
     // icon of weather
     icon?: string;
 }

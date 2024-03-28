@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { setTownList } from '../models/town.model';
 import { HttpClient } from '@angular/common/http';
 import { GroupOfWeather, WeatherResponse } from '../models/weatherResponse.model';
 import { UntypedFormBuilder } from '@angular/forms';
@@ -13,8 +12,7 @@ import { UntypedFormBuilder } from '@angular/forms';
 export class ContentComponent implements OnInit {
 
   getWeatherUrl = environment.apiPath;
-  townList = setTownList();
-  // townWeatherList = new Array<WeatherResponse>();
+  townList = environment.townsList
   totalAngularPackages: any;
 
   constructor(private http: HttpClient) { }
@@ -30,8 +28,9 @@ export class ContentComponent implements OnInit {
           if (weatherResponseTown.weather !== undefined) {
 
             let url = '../../assets/images';
+            let mainWeather = weatherResponseTown.weather[0];
 
-            let codeWetherFromTown = weatherResponseTown.weather[0].id;
+            let codeWetherFromTown = mainWeather.id;
             if (codeWetherFromTown !== undefined) {
 
               // set background of tile    
@@ -67,32 +66,54 @@ export class ContentComponent implements OnInit {
               }
 
               town.viewerInfo!.weatherMainUrl = url;
-
             }
 
             // set URL to icon from API
-            if (weatherResponseTown.weather[0].icon !== undefined) {
-              town.viewerInfo!.iconUrl = `${environment.apiPaqthForIcon}/${weatherResponseTown.weather[0].icon}.png`
+            if (mainWeather.icon !== undefined) {
+              town.viewerInfo!.iconUrl = `${environment.apiPaqthForIcon}/${mainWeather.icon}.png`
             }
 
-            // convert temp from K to C
-            let temperature = '-';
-            if (weatherResponseTown.main?.temp !== undefined) {
-              temperature = this.convertTenpKtoC(weatherResponseTown.main.temp);
+            town.viewerInfo.description = mainWeather.description ?? 'unknow';
+
+            if (weatherResponseTown.main !== undefined) {
+
+              // convert temp from K to C
+              town.viewerInfo!.temp = this.convertTenpKtoC(weatherResponseTown.main.temp);
+
+              // convert temp felt from K to C
+              town.viewerInfo!.feltTemp = this.convertTenpKtoC(weatherResponseTown.main.feels_like);
+
+              // set pressure [hPa]
+              town.viewerInfo!.pressure = `${weatherResponseTown.main.pressure}hPa` ?? 'unknow';
+
+              // set humidity [%]
+              town.viewerInfo!.humidity = `${weatherResponseTown.main.humidity}%` ?? 'unknow';
+
+              // set visibility [m/10km]
+              town.viewerInfo!.visibility = `${weatherResponseTown.visibility}m/10km` ?? 'unknow';
+
+              // set wind speed [m/s]
+              town.viewerInfo!.windSpeed = `${weatherResponseTown.wind?.speed}m/s` ?? 'unknow';
+
+              // set cloudiness [%]
+              town.viewerInfo!.clouds = `${weatherResponseTown.clouds?.all}%` ?? 'unknow';
             }
-
-            town.viewerInfo!.temp = temperature;
-
           }
         }
       })
     }
   }
 
-  convertTenpKtoC = (kelvinTemp: number): string => {
-    let temp = Number(kelvinTemp - 273.15).toFixed(0);
+  convertTenpKtoC = (kelvinTemp?: number): string => {
+    if (kelvinTemp !== undefined) {
 
-    return (`${temp}${String.fromCharCode(176)}C`)
+      let temp = Number(kelvinTemp - 273.15).toFixed(0);
+
+      return (`${temp}${String.fromCharCode(176)}C`)
+    }
+    else {
+      return 'unknow';
+    }
   }
 
 }
