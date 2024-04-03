@@ -8,10 +8,13 @@
 </nav>
 
 <div class="input_container">
-  <input id="townNameNEW">
-  <input id="townCountryNEW">
-  <button>ADD TOWN</button>
+
+  <form [formGroup]="newTownForm" (ngSubmit)="onSubmit()">
+    <input id="name_New_Town" type="text" formControlName="nameNewTown" minlength="3">
+    <input id="code_Country_New_Town" type="text" formControlName="codeCountryNewTown" maxlength="3">
+  </form>
+
+  <button type="submit" [disabled]="!newTownForm.valid" (click)="addNewTown()">ADD TOWN</button>
 </div>
 
-
-<span id="time">{{currentTime | date: 'hh:mm:ss a, d/M/yy' }}</span>
+<span id="time">{{currentTime | date: 'hh:mm:ss a, dd.MM.yy' }}</span>

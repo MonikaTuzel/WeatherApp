@@ -1,7 +1,11 @@
 import { isPlatformBrowser } from "@angular/common";
 import { Component, OnInit, OnDestroy, signal, Inject, PLATFORM_ID } from "@angular/core";
-import { Observable, Subscription, interval, of, timer } from "rxjs";
+import { Validators, FormBuilder } from "@angular/forms";
+import { Subscription, timer } from "rxjs";
 import { map, share } from "rxjs/operators";
+import { TownService } from "../services/town.service";
+import { TownModel } from "../models/town.model";
+import { PopupService } from "../services/popup.service";
 
 @Component({
   selector: 'app-header',
@@ -11,16 +15,21 @@ import { map, share } from "rxjs/operators";
 
 export class HeaderComponent implements OnInit, OnDestroy {
 
+  constructor(@Inject(PLATFORM_ID) platformId: object, private formBuilder: FormBuilder, private _townService: TownService, private _popupService: PopupService) {
+    this.isBrowser.set(isPlatformBrowser(platformId));
+  }
+
   time = new Date();
   currentTime = new Date();
   intervalId: any;
   subscription?: Subscription;
-    
-  isBrowser = signal(false);
 
-  constructor(@Inject(PLATFORM_ID) platformId: object) {
-    this.isBrowser.set(isPlatformBrowser(platformId));
-  }
+  newTownForm = this.formBuilder.group({
+    nameNewTown: ['', Validators.required],
+    codeCountryNewTown: [''],
+  });
+
+  isBrowser = signal(false);
 
   ngOnInit() {
     if (this.isBrowser()) {
@@ -28,7 +37,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.intervalId = setInterval(() => {
         this.time = new Date();
       }, 1000);
-  
+
       // Using RxJS Timer
       this.subscription = timer(0, 1000)
         .pipe(
@@ -37,7 +46,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         )
         .subscribe(time => {
           this.currentTime = time;
-        });
+        });    
     }
   }
 
@@ -46,5 +55,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+  }
+
+  public addNewTown() {
+
+    let nameTown = (this.newTownForm.controls.nameNewTown.value as string)?.toUpperCase()
+    let codeCountry = (this.newTownForm.controls.codeCountryNewTown.value as string)?.toUpperCase()
+
+    if (!this._townService.townList.some(x => x.name === nameTown)) {
+      let town = new TownModel(nameTown, codeCountry)
+      this._townService.getTown(town, true);
+    }
+    else {      
+      console.log('Town existed');
+
+      this._popupService.state.next(true);
+      this._popupService.msg.next(`Failed!`);
+      this._popupService.msgDescription.next(`Town ${nameTown} already exists`);
+    }
+  }
+
+  onSubmit() {
+    console.warn(this.newTownForm.value);
   }
 }

@@ -12,7 +12,7 @@
                     </span>
 
                     <span class="descriptionWeather">
-                        {{town.viewerInfo.description}}
+                        {{town.viewerInfo!.description}}
                     </span>
 
                     <span style="font-size: 6rem;">
@@ -22,7 +22,7 @@
 
                 </span>
             </span>
-
+            
             <span class="descriptionWeatherContainer">
 
                 <span class="weatherDescription">
@@ -32,7 +32,7 @@
                     <p class="name">Wind | </p>
                     <p class="name">Cloudiness | </p>
                 </span>
-
+                
                 <span class="weatherDescription">
                     <p>{{town.viewerInfo!.feltTemp}}</p>
                     <p>{{town.viewerInfo!.pressure}}</p>

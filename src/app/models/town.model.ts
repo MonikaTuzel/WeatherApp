@@ -4,4 +4,10 @@ export class TownModel {
     name?: string;
     country?: string;
     public viewerInfo?: ViewWeatherTown;
+
+    constructor(nameTown: string, codeCountry?: string){
+        this.name = nameTown,
+        this.country = codeCountry,
+        this.viewerInfo = new ViewWeatherTown()
+    }
 }
