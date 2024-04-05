@@ -12,6 +12,7 @@ import { ContentComponent } from './content/content.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PopupComponent } from './popup/popup.component';
+import { TownDetailsComponent } from './town-details/town-details.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { PopupComponent } from './popup/popup.component';
     FooterComponent,
     ContentComponent,
     PopupComponent,
+    TownDetailsComponent,
   ],
   imports: [
     BrowserModule,

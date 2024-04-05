@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { PopupService } from '../services/popup.service';
 
@@ -7,21 +7,21 @@ import { PopupService } from '../services/popup.service';
   templateUrl: './popup.component.html',
   styleUrl: './popup.component.scss'
 })
-export class PopupComponent implements OnInit, OnDestroy {
+export class PopupComponent implements AfterViewInit, OnDestroy {
 
   subscription?: Subscription;
 
   public stateMsg?: string;
   public stateMsgDescription?: string;
-  public open = true;
+  public open = false;
 
   constructor(private _popupService: PopupService) {
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this._popupService.state.subscribe({
       next: (state) => {
-        if (state) {
+        if (state) {          
           this.open = true;
           this._popupService.msg.subscribe(
             msg => {

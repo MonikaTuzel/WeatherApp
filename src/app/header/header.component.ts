@@ -46,7 +46,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         )
         .subscribe(time => {
           this.currentTime = time;
-        });    
+        });
     }
   }
 
@@ -63,10 +63,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     let codeCountry = (this.newTownForm.controls.codeCountryNewTown.value as string)?.toUpperCase()
 
     if (!this._townService.townList.some(x => x.name === nameTown)) {
-      let town = new TownModel(nameTown, codeCountry)
-      this._townService.getTown(town, true);
+      let townNew = this._townService.getTown(new TownModel(nameTown, codeCountry), true);
     }
-    else {      
+    else {
       console.log('Town existed');
 
       this._popupService.state.next(true);

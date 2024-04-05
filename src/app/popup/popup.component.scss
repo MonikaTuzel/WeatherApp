@@ -13,7 +13,7 @@
     }
 
     div {
-        display: flex;
+        display: none;
 
         position: absolute;
         top: 30%;
@@ -29,7 +29,7 @@
         background-color: #9DC08B;
 
         &.openPopup {
-            display: none;
+            display: flex;
         }
 
         p {

@@ -15,7 +15,7 @@ export class TownService {
     totalAngularPackages: any;
     townList = environment.townsList
 
-    getTown(town: TownModel, newTown: boolean = false) {
+    getTown(town: TownModel, newTown: boolean = false): TownModel {
         let url = encodeURI(`${environment.apiPath}?q=${town.name},${town.country}&APPID=${environment.apiKey}`)
 
         this._http.get<WeatherResponse>(url).subscribe(weatherResponseTown => {
@@ -106,10 +106,13 @@ export class TownService {
                     }
                 }
             }
+            else {
+                this._popupService.state.next(true);
+                this._popupService.msg.next(`Failed!`);
+                this._popupService.msgDescription.next(`Cannot find town: ${town.name}`);
+            }
         })
-        this._popupService.state.next(true);
-        this._popupService.msg.next(`Failed!`);
-        this._popupService.msgDescription.next(`Cannot find town: ${town.name}`);
+        return town;
     }
 
     convertTenpKtoC(kelvinTemp?: number): string {
@@ -123,6 +126,4 @@ export class TownService {
             return 'unknow';
         }
     }
-
-
 }
