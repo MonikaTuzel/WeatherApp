@@ -4,6 +4,7 @@ import { TownModel } from '../models/town.model';
 import { environment } from '../../environments/environment';
 import { WeatherResponse } from '../models/weatherResponse.model';
 import { PopupService } from './popup.service';
+import { UntypedFormBuilder } from '@angular/forms';
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +14,7 @@ export class TownService {
     constructor(private _http: HttpClient, private _popupService: PopupService) { }
 
     totalAngularPackages: any;
-    townList = environment.townsList
+    townList: TownModel[] = [];
 
     getTown(town: TownModel, newTown: boolean = false): TownModel {
         let url = encodeURI(`${environment.apiPath}?q=${town.name},${town.country}&APPID=${environment.apiKey}`)
@@ -67,6 +68,13 @@ export class TownService {
                         town.viewerInfo!.weatherMainUrl = url;
                     }
 
+                    // set ID
+                    town.id = weatherResponseTown.id;
+
+                    // set co-ordinates
+                    town.lat = weatherResponseTown.coord?.lat;
+                    town.lng = weatherResponseTown.coord?.lon;
+
                     // set URL to icon from API
                     if (mainWeather.icon !== undefined) {
                         town.viewerInfo!.iconUrl = `${environment.apiPaqthForIcon}/${mainWeather.icon}.png`
@@ -97,13 +105,12 @@ export class TownService {
                         // set cloudiness [%]
                         town.viewerInfo!.clouds = `${weatherResponseTown.clouds?.all}%` ?? 'unknow';
                     }
-
                     if (newTown) {
-                        this.townList.unshift(town);
                         this._popupService.state.next(true);
                         this._popupService.msg.next(`Success!`);
                         this._popupService.msgDescription.next(`Added new town ${town.name} with success!`);
                     }
+                    this.townList.unshift(town);
                 }
             }
             else {
@@ -125,5 +132,11 @@ export class TownService {
         else {
             return 'unknow';
         }
+    }
+
+    findTownById(townID: string): TownModel | undefined {
+
+        let townSearch = this.townList.find(x => x.id == townID);
+        return townSearch;
     }
 }

@@ -1,1 +1,30 @@
-<p>town-details works!</p>
+<div class="detailsContainer" style='--town-url: url("{{town?.viewerInfo?.weatherMainUrl}}")'>
+   
+    <div class="townDetailsNameMapContainer">
+
+        <div class="townNameContainer">
+            <span class="townName">
+                <p class="nameTownP">{{town?.name}} </p>
+                <img src='{{town?.viewerInfo?.iconUrl}}' />
+            </span>
+
+            <span class="descriptionWeather">
+                {{town?.viewerInfo?.description}}
+            </span>
+
+            <span style="font-size: 6rem;">
+                {{town?.viewerInfo?.temp}}
+            </span>
+        </div>
+
+        <div class="mapContainer">
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <div>
+        <span>Details....</span>
+    </div>
+
+
+</div>

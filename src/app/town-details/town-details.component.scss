@@ -1,0 +1,116 @@
+:host {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.detailsContainer {
+    position: relative;
+    margin: 2rem;
+
+    height: 90%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    flex-direction: column;
+
+    background-position: center;
+    background-size: cover;
+    border-radius: 2rem;
+
+    &::before {
+        content: "";
+        background-image: var(--town-url);
+
+        height: 100%;
+        width: 100%;
+        background-position: center;
+        background-size: cover;
+
+        background-size: cover;
+        position: absolute;
+        flex-direction: column;
+
+        opacity: 40%;
+        border-radius: 2rem;
+    }
+
+    // MEDIA WIDTH
+    @media(min-width: 768px) {
+        width: 90%;
+
+        #townContainer {
+            flex-direction: column;
+        }
+
+        .nameTownP {
+            font-size: 5vw;
+            margin: 0;
+        }
+    }
+
+    // MEDIA WIDHT
+    @media(min-width: 1170px) {
+
+        .nameTownP {
+            font-size: 3vw;
+            margin: 0;
+        }
+    }
+
+    // MEDIA HEIGHT
+    @media(min-height: 700px) {
+        flex-direction: column;
+    }
+
+    @media(min-height: 1170px) {
+        flex-direction: column;
+    }
+
+    .townDetailsNameMapContainer {
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+        width: 100%;
+
+        .townNameContainer {
+            display: flex;
+            flex-direction: column;
+            margin: 2rem;
+            justify-content: center;
+            align-items: center;
+
+            width: 40%;
+            height: 30%;
+
+            .townName {
+                display: flex;
+                flex-direction: row;
+                margin: 1rem;
+                align-items: center;
+
+                img {
+                    width: 80px;
+                    height: 80px;
+                }
+            }
+        }
+
+        .mapContainer {
+            width: 70%;
+            height: 30%;
+            margin: 2rem;
+
+            #map {
+                width: 100%;
+                height: 100%;
+
+            }
+        }
+    }
+
+}
