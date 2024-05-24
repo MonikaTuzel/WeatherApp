@@ -14,13 +14,17 @@ export class ContentComponent implements AfterViewInit {
 
   townList: TownModel[] = [];
 
-  constructor(private _townService: TownService) { }
+  constructor(private _townService: TownService) {}
 
   ngAfterViewInit() {
-    for (let town of this.townListNames) {
-      let townModel = this._townService.getTown(town);
+    this.townList = this._townService.townList
 
-      this.townList.push(townModel);
-    }
+    console.log("first", this.townList.length)
+    
+    let tt = this._townService.loadTowns();
+
+    console.log("END")
+
+  
   }
 }

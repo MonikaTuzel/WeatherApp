@@ -39,6 +39,23 @@
         border-radius: 2rem;
     }
 
+    .informationContainer{
+        height: 50%;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+
+        // svg {
+        //     height: 10%;
+        // }
+
+        // span {
+        //     direction: flex;
+        //     align-content: center;
+        //     font-size: 200%;
+        // }
+    }
+
     // MEDIA WIDTH
     @media(min-width: 768px) {
         width: 90%;
@@ -74,7 +91,8 @@
     .townDetailsNameMapContainer {
         display: flex;
         flex-direction: row;
-        height: 100%;
+        align-items: center;
+        height: 50%;
         width: 100%;
 
         .townNameContainer {
@@ -101,9 +119,9 @@
         }
 
         .mapContainer {
-            width: 70%;
-            height: 30%;
-            margin: 2rem;
+            width: 60%;
+            height: 70%;
+            margin: 1rem;
 
             #map {
                 width: 100%;

@@ -139,4 +139,11 @@ export class TownService {
         let townSearch = this.townList.find(x => x.id == townID);
         return townSearch;
     }
+
+    loadTowns(){        
+        let i = 0;
+        for (let town of environment.townsList) {
+           this.getTown(town)
+        }
+    }
 }

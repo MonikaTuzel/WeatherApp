@@ -77,4 +77,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onSubmit() {
     console.warn(this.newTownForm.value);
   }
+
+  public showAddNewTownMobile(){
+    
+  }
 }

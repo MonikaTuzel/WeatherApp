@@ -10,7 +10,7 @@
         cursor: pointer;
         border-radius: 1rem;
 
-        height: 85vh;
+        height: auto;
         width: 100%;
 
         margin: 1%;
@@ -21,53 +21,39 @@
         }
 
         // MEDIA WIDTH
-        @media(min-width: 768px) {
+        @media(min-width: 380px) {
             width: 90%;
-
+            
             #townContainer {
-                flex-direction: row;
-            }
-
-            .nameTownP {
-                font-size: 5vw;
-                margin: 0;
+                .townNameWeatherContainer {
+                    height: auto;
+                }
             }
         }
 
         @media(min-width: 1170px) {
             width: 48%;
-
-            .nameTownP {
-                font-size: 3vw;
-                margin: 0;
-            }
         }
 
         // MEDIA HEIGHT
         @media(min-height: 700px) {
-            height: 42vh;
+            height: auto;
         }
 
         @media(min-height: 1170px) {
-            height: 25vh;
+            height: auto;
         }
-    }
-
-    .nameTownP {
-        font-size: 8vw;
-        margin: 0;
     }
 
     #townContainer {
         position: relative;
 
-        height: 100%;
+        height: auto;
         width: 100%;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: space-around;
-
-        flex-direction: column;
 
         background-position: center;
         background-size: cover;
@@ -91,70 +77,71 @@
         .townNameWeatherContainer {
             position: relative;
             display: flex;
-            font-size: 3rem;
-            align-content: center;
-            width: 80%;
-            height: 100%;
-
-        }
-
-        .townNameWeather {
-            display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            margin: 2rem;
+            font-size: 3rem;
+            align-content: center;            
+            justify-content: space-between;
+            width: 100%;
+            height: 90vh;
+
+            .townDegrDescription {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                margin-right: 3rem;
+                margin-bottom: 1rem;
+                text-align: right;
+
+                .descriptionWeather {
+                    font-size: 1.8rem;
+                }
+
+                .temeratureWeather {
+                    font-size: 6rem;
+                }
+            }
         }
 
         .townName {
             display: flex;
             flex-direction: row;
+            width: 100%;
+            margin-top: 1rem;
+            margin-left: 1rem;
 
             align-items: center;
 
             img {
-                width: 80px;
+                width: 100px;
                 height: 80px;
             }
         }
 
-        .descriptionWeather {
-            font-size: 1.8rem;
-            margin: 0;
-            width: 100%;
-            text-align: left;
-            margin-left: 1rem;
-        }
-
         .descriptionWeatherContainer {
-
             display: flex;
             flex-direction: row;
-            justify-content: center;
-            width: 60%;
-            margin: 3rem;
+            flex-wrap: wrap;
+
+            justify-content: space-around;
+            align-content: end;
+            width: 100%;
 
             background-color: white;
-            border-radius: 10%;
-            padding: 0.3rem;
-            opacity: 60%;
+            opacity: 50%;
 
-
-            .weatherDescription {
+            span {
                 display: flex;
-                flex-direction: column;
-                flex-wrap: wrap;
+                flex-direction: row;
+                align-items: center;
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
 
-                p {
-                    margin: 0;
-                    font-size: 1.7rem;
-                    padding: 0.1rem;
+                font-size: 2rem;
+
+                svg {
+                    height: 2rem;
+                    margin-right: 0.5rem;
                 }
-
-                .name {
-                    text-align: right;
-                }
-
             }
         }
 

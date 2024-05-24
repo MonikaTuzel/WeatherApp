@@ -1,20 +1,38 @@
-<nav class="navbar navbar-light bg-light">
-  <a class="navbar-brand" href="#">
-    <img width="60" height="60" style="margin: 5px;"
-      src="https://img.icons8.com/external-goofy-line-kerismaker/96/external-Cloud-Sun-weather-goofy-line-kerismaker.png"
-      alt="WeatherApp" />
-    WeatherApp
-  </a>
-</nav>
+<div class="headerContainer">
 
-<div class="input_container">
+  <nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#" id="logoContainer">
+      <img
+        src="https://img.icons8.com/external-goofy-line-kerismaker/96/external-Cloud-Sun-weather-goofy-line-kerismaker.png"
+        alt="WeatherApp" />
+      WeatherApp
+    </a>
+  </nav>
 
+  <div class="input_container">
+
+    <form [formGroup]="newTownForm" (ngSubmit)="onSubmit()">
+      <input id="name_New_Town" type="text" formControlName="nameNewTown" minlength="3">
+      <input id="code_Country_New_Town" type="text" formControlName="codeCountryNewTown" maxlength="3">
+    </form>
+
+    <button type="submit" [disabled]="!newTownForm.valid" (click)="addNewTown()">ADD TOWN</button>
+  </div>
+
+  <span id="time">{{currentTime | date: 'hh:mm:ss a, dd.MM.yy' }}</span>
+
+  <div class="input_container_mobile">
+    <button type="submit" [disabled]="!newTownForm.valid" (click)="showAddNewTownMobile()">NEW TOWN</button>
+  </div>
+
+</div>
+
+
+
+
+<!-- <div class="formContainerMobile">
   <form [formGroup]="newTownForm" (ngSubmit)="onSubmit()">
     <input id="name_New_Town" type="text" formControlName="nameNewTown" minlength="3">
     <input id="code_Country_New_Town" type="text" formControlName="codeCountryNewTown" maxlength="3">
   </form>
-
-  <button type="submit" [disabled]="!newTownForm.valid" (click)="addNewTown()">ADD TOWN</button>
-</div>
-
-<span id="time">{{currentTime | date: 'hh:mm:ss a, dd.MM.yy' }}</span>
+</div> -->
